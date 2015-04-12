@@ -1,6 +1,5 @@
 package dijkstra;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
@@ -10,8 +9,8 @@ public class WorkThread extends Thread {
 	private final Semaphore semaphore;
 	private final boolean[] results;
 	private final int resultId;
-	private final BigInteger len;
-	private final BigInteger total;
+	private final long len;
+	private final long total;
 	private final String str;
 		
 	public static final String[] VECTOR = new String[8];
@@ -111,9 +110,9 @@ public class WorkThread extends Thread {
 		return null != result && result.equals(product);
 	}*/
 	
-	public BigInteger findProduct(String str, BigInteger len, BigInteger from, BigInteger to, String product, String result) throws Exception {
-		for (BigInteger i = from; i.compareTo(to) < 0; i.add(BigInteger.ONE)) {
-			result = getProduct(result, str.charAt(i.remainder(len).intValue()));
+	public Long findProduct(String str, long len, long from, long to, String product, String result) throws Exception {
+		for (long i = from; i < to; ++i) {
+			result = getProduct(result, str.charAt((int) (i % len)));
 			if (result.equals(product)) 
 				return i;
 		}
@@ -121,9 +120,9 @@ public class WorkThread extends Thread {
 		return null;			
 	}
 	
-	public BigInteger findProductReverse(String str, BigInteger len, BigInteger from, BigInteger to, String product, String result) throws Exception {
-		for (BigInteger i = from; i.compareTo(to) >= 0; i.subtract(BigInteger.ONE)) {
-			result = getProductReverse(str.charAt(i.remainder(len).intValue()), result);
+	public Long findProductReverse(String str, long len, long from, long to, String product, String result) throws Exception {
+		for (long i = from; i >= to; --i) {
+			result = getProductReverse(str.charAt((int) (i % len)), result);
 			if (result.equals(product)) 
 				return i;
 		}
@@ -131,14 +130,14 @@ public class WorkThread extends Thread {
 		return null;			
 	}
 	
-	public List<BigInteger> findProducts(String str, BigInteger len, BigInteger start, BigInteger total, String product) throws Exception {
-		BigInteger idx = findProduct(str, len, start, total, product, null);
+	public List<Long> findProducts(String str, long len, long start, long total, String product) throws Exception {
+		Long idx = findProduct(str, len, start, total, product, null);
 		if (null != idx) {
-			List<BigInteger> results = new ArrayList<BigInteger>();
+			List<Long> results = new ArrayList<Long>();
 			results.add(idx);
 			
 			while (idx.compareTo(total) < 0) {
-				idx = findProduct(str, len, idx.add(BigInteger.ONE), total, product, product);
+				idx = findProduct(str, len, idx + 1, total, product, product);
 				if (null != idx)
 					results.add(idx);
 				else
@@ -151,14 +150,14 @@ public class WorkThread extends Thread {
 		return null;
 	}
 	
-	public List<BigInteger> findProductsReverse(String str, BigInteger len, BigInteger start, String product) throws Exception {
-		BigInteger idx = findProductReverse(str, len, start, BigInteger.ZERO, product, null);
+	public List<Long> findProductsReverse(String str, long len, long start, String product) throws Exception {
+		Long idx = findProductReverse(str, len, start, 0, product, null);
 		if (null != idx) {
-			List<BigInteger> results = new ArrayList<BigInteger>();
+			List<Long> results = new ArrayList<Long>();
 			results.add(idx);
 			
 			while (idx.compareTo(start) < 0) {
-				idx = findProductReverse(str, len, idx.subtract(BigInteger.ONE), BigInteger.ZERO, product, product);
+				idx = findProductReverse(str, len, idx - 1, 0, product, product);
 				if (null != idx)
 					results.add(idx);
 				else
@@ -171,19 +170,19 @@ public class WorkThread extends Thread {
 		return null;
 	}
 	
-	public boolean checkString(String str, BigInteger len, BigInteger total) throws Exception {
-		List<BigInteger> i = findProducts(str, len, BigInteger.ZERO, total, "i");
+	public boolean checkString(String str, long len, long total) throws Exception {
+		List<Long> i = findProducts(str, len, 0, total, "i");
 		if (null != i) {
-			List<BigInteger> k = findProductsReverse(str, len, total.subtract(BigInteger.ONE), "k");
+			List<Long> k = findProductsReverse(str, len, total-1, "k");
 			if (null != k) {
-				for (BigInteger iEnd : i) {
-					List<BigInteger> j = findProducts(str, len, iEnd.add(BigInteger.ONE), total, "j");
+				for (Long iEnd : i) {
+					List<Long> j = findProducts(str, len, iEnd + 1, total, "j");
 					if (null != j) {
-						for (BigInteger jEnd : j)
-							for (BigInteger kStart : k) {
-								if (jEnd.add(BigInteger.ONE).equals(kStart))
+						for (Long jEnd : j)
+							for (Long kStart : k) {
+								if ((jEnd + 1) == kStart)
 									return true;
-								else if (jEnd.compareTo(kStart) >= 0)
+								else if (jEnd >= kStart)
 									break;
 							}
 					}
@@ -201,7 +200,7 @@ public class WorkThread extends Thread {
 	}
 	
 	public WorkThread(Semaphore semaphore, boolean[] results, int resultId, 
-			BigInteger len, BigInteger total, String str) {
+			long len, long total, String str) {
 		this.semaphore = semaphore;
 		this.results = results;
 		this.resultId = resultId;

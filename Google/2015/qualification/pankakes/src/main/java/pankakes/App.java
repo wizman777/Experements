@@ -136,7 +136,7 @@ public class App {
 						int minutes = 0;
 						int maxPancakes = pancakes.get(0);
 						if (maxPancakes <= 2)
-							minutes =  maxPancakes;
+							minutes = maxPancakes;
 						else 
 							for (int n = 2; n <= maxPancakes; ++n) {
 								int minMinutes = getMinMinutes(pancakes, n);

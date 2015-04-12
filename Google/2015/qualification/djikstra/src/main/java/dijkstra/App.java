@@ -143,9 +143,9 @@ public class App {
 					for (int nCase = 0; nCase < nCases; ++nCase) {
 						String[] data = reader.readLine().split(" ");
 
-						BigInteger len = new BigInteger(data[0]);
-						BigInteger repeat = new BigInteger(data[1]);
-						BigInteger total = len.multiply(repeat);
+						long len = Long.parseLong(data[0]);
+						long repeat = Long.parseLong(data[1]);
+						long total = len * repeat;
 						String str = reader.readLine();
 						
 						semaphore.acquire(); 
