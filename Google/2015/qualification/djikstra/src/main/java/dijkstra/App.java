@@ -90,7 +90,110 @@ public class App {
 	public static final String INPUT_FILE_NAME = "input.txt";
 	public static final String OUTPUT_FILE_NAME = "output.txt";
 	
-	public static final int MAX_THREADS = 10;
+	private static final byte C_ONE = 0;
+	private static final byte C_I = 1;
+	private static final byte C_J = 2;
+	private static final byte C_K = 3;
+	private static final byte C_N_ONE = 4;
+	private static final byte C_N_I = 5;
+	private static final byte C_N_J = 6;
+	private static final byte C_N_K = 7;
+	
+	public static final byte[][] MATRIX = new byte[8][8];
+
+	static {
+		MATRIX[C_ONE][C_ONE] = C_ONE;
+		MATRIX[C_ONE][C_I] = C_I;
+		MATRIX[C_ONE][C_J] = C_J;
+		MATRIX[C_ONE][C_K] = C_K;
+		MATRIX[C_I][C_ONE] = C_I;
+		MATRIX[C_I][C_I] = C_N_ONE;
+		MATRIX[C_I][C_J] = C_K;
+		MATRIX[C_I][C_K] = C_N_J;
+		MATRIX[C_J][C_ONE] = C_J;
+		MATRIX[C_J][C_I] = C_N_K;
+		MATRIX[C_J][C_J] = C_N_ONE;
+		MATRIX[C_J][C_K] = C_I;
+		MATRIX[C_K][C_ONE] = C_K;
+		MATRIX[C_K][C_I] = C_J;
+		MATRIX[C_K][C_J] = C_N_I;
+		MATRIX[C_K][C_K] = C_N_ONE;
+		
+		for (int i = 0; i < 4; ++i)
+			for (int j = 0; j < 4; ++j) {
+				MATRIX[i+4][j] = inverse(MATRIX[i][j]);
+				MATRIX[i][j+4] = inverse(MATRIX[i][j]);
+				MATRIX[i+4][j+4] = MATRIX[i][j];
+			}
+	}
+	
+	public static byte inverse(byte value) {
+		return (byte) (value >= C_N_ONE ? value - 4 : value + 4);
+	}
+	
+	public static byte getValue(char value) throws Exception {
+		switch(value) {
+		case 'i':
+			return C_I;
+		case 'j':
+			return C_J;
+		case 'k':
+			return C_K;
+		}
+		
+		throw new Exception("Invalid character"); 
+	}
+
+	public static byte getProduct(byte value1, byte value2) throws Exception {
+		return MATRIX[value1][value2];
+	}
+	
+	public static byte[] convert(String str, long len) throws Exception {
+		byte[] data = new byte[(int) len];
+		for (int i = 0; i < len; ++i)
+			data[i] = getValue(str.charAt(i));
+		
+		return data;
+	}
+	
+	public static byte calcProduct(byte[] data, long len) throws Exception {
+		byte result = C_ONE;
+		for (int i = 0; i < len; ++i) 
+			result = getProduct(result, data[i]);
+		
+		return result;			
+	}
+	
+	public static boolean isCompute(byte product, long repeat) {
+		if (product == C_ONE)
+			return false;
+		if (product == C_N_ONE)
+			return repeat % 2 != 0;
+		
+		return repeat % 2 == 0 && repeat % 4 != 0;
+	}
+
+	public static Long findProduct(byte[] data, long len, long from, long to, byte product) throws Exception {
+		byte result = C_ONE;
+		for (long i = from; i < to; ++i) {
+			result = getProduct(result, data[(int) (i % len)]);
+			if (result == product) 
+				return i;
+		}
+		
+		return null;	
+	}
+	
+	public static Long findProductReverse(byte[] data, long len, long from, long to, byte product) throws Exception {
+		byte result = C_ONE;
+		for (long i = to-1; i >= from; --i) {
+			result = getProduct(data[(int) (i % len)], result);
+			if (result == product) 
+				return i;
+		}
+		
+		return null;			
+	}
 
 	
 	public static void main(String[] args) {
@@ -106,60 +209,40 @@ public class App {
 			if (args.length > 1)
 				outputName = args[1];
 			
-			String[] vector = new String[4];
-			vector[0] = "1";
-			vector[1] = "i";
-			vector[2] = "j";
-			vector[3] = "k";
-			
-			String[][] matix = new String[4][4];
-			matix[0][0] = "1";
-			matix[0][1] = "i";
-			matix[0][2] = "j";
-			matix[0][3] = "k";
-			matix[1][0] = "i";
-			matix[1][1] = "-1";
-			matix[1][2] = "k";
-			matix[1][3] = "-j";
-			matix[2][0] = "j";
-			matix[2][1] = "-k";
-			matix[2][2] = "-1";
-			matix[2][3] = "i";
-			matix[3][0] = "k";
-			matix[3][1] = "j";
-			matix[3][2] = "-i";
-			matix[3][3] = "-1";
-			
-			Semaphore semaphore = new Semaphore(MAX_THREADS);
-		
 			try (BufferedReader reader = new BufferedReader(new FileReader(new File(inputName)))) {
 				try (PrintWriter writer = new PrintWriter(outputName)) {
 					int nCases = Integer.parseInt(reader.readLine());
 
-					List<WorkThread> threads = new ArrayList<WorkThread>();
-
-					boolean[] results = new boolean[nCases];
-					
 					for (int nCase = 0; nCase < nCases; ++nCase) {
 						String[] data = reader.readLine().split(" ");
 
 						long len = Long.parseLong(data[0]);
 						long repeat = Long.parseLong(data[1]);
-						long total = len * repeat;
 						String str = reader.readLine();
+								
+						boolean output = false;
 						
-						semaphore.acquire(); 
-						WorkThread thread = new WorkThread(semaphore, results, nCase, len, total, str);
-						threads.add(thread);
-						thread.start();
+						// convert characters to bytes
+						byte[] data1 = convert(str, len);
+						// evaluate total product of data
+						byte product = calcProduct(data1, len);
+						// check what total product will be equal to -1
+						if (isCompute(product, repeat)) {
+							// find first occurrence of i
+							long total = len * repeat;
+							Long part1 = findProduct(data1, len, 0, total, C_I);
+							if (null != part1) {
+								// find last occurrence of k
+								Long part2 = findProductReverse(data1, len, part1 + 2, total, C_K);
+								if (null != part2 && part1 + 1 < part2) 
+									// the last of string should sum to j, no future tests requires
+									output = true;
+							}
+						}
 						
+						System.out.println("Case #" + (nCase + 1) + ": " + (output ? "YES" : "NO"));
+						writer.println("Case #" + (nCase + 1) + ": " + (output ? "YES" : "NO"));
 					}
-					
-					for (WorkThread thread : threads)
-						thread.join();
-					
-					for (int nCase = 0; nCase < nCases; ++nCase) 
-						writer.println("Case #" + (nCase + 1) + ": " + (results[nCase] ? "YES" : "NO"));
 				}
 			}
 		} catch (Exception e) {

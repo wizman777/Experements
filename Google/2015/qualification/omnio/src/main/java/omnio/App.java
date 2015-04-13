@@ -89,49 +89,35 @@ public class App {
 				
 					for (int nCase = 0; nCase < nCases; ++nCase) {
 						String[] data = reader.readLine().split(" ");
-						int x = Integer.parseInt(data[0]);
-						int r = Integer.parseInt(data[1]);
-						int c = Integer.parseInt(data[2]);
+						int n = Integer.parseInt(data[0]);
+						int x = Integer.parseInt(data[1]);
+						int y = Integer.parseInt(data[2]);
 						
-						String reason = "";
-						System.out.println("x: " + x + ", r: " + r + ", c: " + c);
+						System.out.println("x: " + n + ", r: " + x + ", c: " + y);
 						
-						boolean richardWon = x > 1;
-						if (richardWon) {
-							if (r > c && c > 1) {
-								if ((r % c) == 0)
-									r = r / c;
-							} else if (c > r && r > 1) {
-								if ((c % r) == 0)
-									c = c / r;
-							}
-							
-							if (x < 7) { // 7 omnion - richard will win automatically no matter that
-								if ((r * c) % x == 0) { // total space should be equal n * x, or richard will win 
-									if (x <= r || x <= c) { // check for I omniom
-										int L = x / 2; 
-										int T = x - L;
-										if (x % 2 != 0)
-											++L;
-										if ((L < r || L == r && T <= c ) && (L < c || L == c && T < r)) { // check for L omniom
-	/*										int T = x - L; // check for T omnion
-											if (L == r && T * 2 > c || L == c && T * 2 > r)
-												richardWon = true;
-											else*/
-												richardWon = false;
-										}
-										else
-											reason = "L-omniom is too big";
-									} else
-										reason = "I-omniom is too long";								
-								} else
-									reason = "space is not enough";
-								
-							} else
-								reason = "too big omniom";
+						// x must be >= y, transpone the game field if needed
+						if (x < y) { 
+							int t = x;
+							x = y;
+							y = t;
 						}
-						
-						System.out.println("Case #" + (nCase + 1) + ": " + (richardWon ? ("RICHARD" + ", reason: " + reason) : "GABRIEL"));
+
+						boolean richardWon;
+						if ((x * y) % n != 0) 		// Richard will always win on any disproportional game field
+							richardWon = true;
+						else if (n == 1 || n == 2) 	// with N=1 or 2 Garcia will always win
+							richardWon = false;
+						else if (n == 3)			// with N=3, Garcia wins if Y > 1 
+							richardWon = (y == 1);
+						else if (n == 4)			// with N=4, Garcia wins if Y > 2 
+							richardWon = (y <= 2);
+						else if (n == 5)			// with N=5, Garcia wins if Y > 2 and X,Y != 5,3 
+							richardWon = (y <= 2 || x == 5 && y == 3);
+						else if (n == 6)			// with N=6, Garcia wins if Y > 3
+							richardWon = (y <= 3);
+						else 						// with N>=7, Richard will always wins
+							richardWon = true;
+
 						writer.println("Case #" + (nCase + 1) + ": " + (richardWon ? "RICHARD" : "GABRIEL"));
 					}
 				}
