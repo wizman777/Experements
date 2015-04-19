@@ -4,11 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.concurrent.Semaphore;
 
 /**
  * Problem
@@ -157,8 +152,8 @@ public class App {
 	}
 	
 	public static byte calcProduct(byte[] data, long len) throws Exception {
-		byte result = C_ONE;
-		for (int i = 0; i < len; ++i) 
+		byte result = data[0];
+		for (int i = 1; i < len; ++i) 
 			result = getProduct(result, data[i]);
 		
 		return result;			
