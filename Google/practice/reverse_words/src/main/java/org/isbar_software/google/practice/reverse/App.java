@@ -5,6 +5,20 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 
+/**
+ * Qualification Round Africa 2010
+ * https://code.google.com/codejam/contest/351101/dashboard#s=p1
+ * 
+ * Problem B. Reverse Words
+ * 
+ * Small Sample: Solved
+ * Large Sample: Solved
+ * 
+ * @author dima
+ *
+ *
+ */
+
 public class App {
 
 	public static final String INPUT_FILE_NAME = "input.txt";

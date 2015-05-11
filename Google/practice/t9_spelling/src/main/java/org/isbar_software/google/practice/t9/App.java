@@ -8,6 +8,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * Qualification Round Africa 2010
+ * https://code.google.com/codejam/contest/351101/dashboard#s=p2
+ * 
+ * Problem C. T9 Spelling
+ * 
+ * Small Sample: Solved
+ * Large Sample: Solved
+ * 
+ * @author dima
+ *
+ *
+ */
 public class App {
 	
 	public static final String INPUT_FILE_NAME = "input.txt";

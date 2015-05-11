@@ -6,6 +6,20 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
+/**
+ * Qualification Round Africa 2010
+ * https://code.google.com/codejam/contest/351101/dashboard#s=p0
+ * 
+ * Problem A. Store Credit
+ * 
+ * Small Sample: Solved
+ * Large Sample: Solved
+ * 
+ * @author dima
+ *
+ *
+ */
+
 public class App {
 
 	public static final String INPUT_FILE_NAME = "input.txt";

@@ -5,6 +5,20 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 
+/**
+ * Round 1C 2010
+ * https://code.google.com/codejam/contest/619102/dashboard#s=p0
+ * 
+ * Problem A. Rope Intranet
+ * 
+ * Small Sample: Solved
+ * Large Sample: Solved
+ * 
+ * @author dima
+ *
+ *
+ */
+
 public class App {
 	public static final String INPUT_FILE_NAME = "input.txt";
 	public static final String OUTPUT_FILE_NAME = "output.txt";
