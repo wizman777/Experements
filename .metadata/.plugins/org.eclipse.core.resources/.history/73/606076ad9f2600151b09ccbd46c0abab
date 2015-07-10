@@ -1,0 +1,14 @@
+package org.isbar_software.benchmarks.dynamodb;
+
+import java.util.Properties;
+
+public class Benchmark {
+
+	public Benchmark(Properties properties) {
+		
+	}
+	
+	public void process() {
+		
+	}
+}

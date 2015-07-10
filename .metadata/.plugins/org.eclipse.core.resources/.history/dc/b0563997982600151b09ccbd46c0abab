@@ -1,0 +1,11 @@
+package org.isbar_software.benchmarks.neo4j;
+
+public class App {
+	private static final String PROPERTIES_FILE = "properties/benchmark_neo4j.properties";
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

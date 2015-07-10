@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;test_dynamo_db_speed&apos; to &apos;org.isbar_software.benchmarks.dynamodb&apos;&#x0A;- Original project: &apos;test_dynamo_db_speed&apos;&#x0A;- Original element: &apos;test_dynamo_db_speed/src/main/java/test_dynamo_db_speed&apos;&#x0A;- Renamed element: &apos;test_dynamo_db_speed/src/main/java/org.isbar_software.benchmarks.dynamodb&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;test_dynamo_db_speed&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src\/main\/java&lt;test_dynamo_db_speed" name="org.isbar_software.benchmarks.dynamodb" qualified="false" references="true" stamp="1436489836515" textual="false" version="1.0"/>
+</session>

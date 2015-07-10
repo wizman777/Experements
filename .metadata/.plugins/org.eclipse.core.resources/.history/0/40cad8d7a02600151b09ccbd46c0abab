@@ -1,0 +1,51 @@
+package org.isbar_software.benchmarks.dynamodb;
+
+import java.util.Properties;
+
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
+
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.util.StringUtils;
+
+public class Benchmark {
+	private static final String TABLE_NAME = "Test";
+
+	private final int count;
+	private final String accessKey;
+	private final String secretKey;
+	
+	public Benchmark(Properties properties) {
+		count = Integer.parseInt(properties.getProperty("count"));
+		accessKey = properties.getProperty("aws.access.key");
+        secretKey = properties.getProperty("aws.secret.key"); 
+        
+        if (StringUtils.isNullOrEmpty(accessKey) || StringUtils.isNullOrEmpty(secretKey))
+        	throw new IllegalArgumentException("S3 access key and secret key can not be empty");
+	}
+	
+	public void process() {
+		AWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
+		DynamoDB dynamoDB = new DynamoDB(new AmazonDynamoDBClient(awsCredentials));
+		Table table = dynamoDB.getTable(TABLE_NAME);
+
+		System.out.println("Testing item write");
+   	    long beginTime = System.currentTimeMillis();
+   	    for (int i = 0; i < count; ++i) {
+   	    	
+   	    }
+			
+		long endTime = System.currentTimeMillis();
+	    System.out.println(String.format("Done. Imported %d nodes over %d ms. Average %f ms per node", 
+	    		count, endTime - beginTime, (float)(endTime - beginTime) / (float)count));
+		
+		
+		dynamoDB.ba
+		
+	}
+}

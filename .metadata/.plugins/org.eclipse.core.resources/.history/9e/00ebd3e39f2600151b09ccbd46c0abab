@@ -1,0 +1,24 @@
+package org.isbar_software.benchmarks.dynamodb;
+
+import java.util.Properties;
+
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.s3.AmazonS3;
+
+public class Benchmark {
+
+	private final int count;
+	private final String accessKey;
+	private final String secretKey;
+	
+	public Benchmark(Properties properties) {
+		count = Integer.parseInt(properties.getProperty("count"));
+	}
+	
+	public void process() {
+		AmazonS3 s3client;
+		DynamoDB dynamoDB; 
+
+		
+	}
+}

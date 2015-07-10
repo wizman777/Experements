@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectWizardArchetypePage">
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+		<list key="issueManagementUrl">
+		</list>
+		<list key="issueManagementSystem">
+		</list>
+		<list key="ciManagementUrl">
+		</list>
+		<list key="ciManagementSystem">
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="MavenProjectWizardLocationPage">
+		<list key="location">
+			<item value="/home/dima/Projects/Experements/Google/2015/Round 1C/monkeys"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/Round 1C/battleship"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/Round 1B/neighbors"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/Round 1B/culture"/>
+			<item value="/home/dima/Projects/Experements/Google/2014/Round 1B/repeater"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/1A/trees"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/1A/barber"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/1a"/>
+			<item value="/home/dima/Projects/Experements/Google/practice/outlets"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/qualification/omnio"/>
+			<item value="/home/dima/Projects/Experements/Google/practice"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/qualification/pankakes"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/qualification/ovation"/>
+			<item value="/home/dima/Projects/Experements/Google/practice/load_balancing"/>
+			<item value="/home/dima/Projects/Experements/Google/practice/ropes"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+	</section>
+	<section name="Maven2ProjectWizardArchifactPage">
+		<list key="groupId">
+		</list>
+		<list key="package">
+		</list>
+		<list key="artifactId">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="/home/dima/Projects/Experements/Google"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/Round 1A/trees"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/Round 1A/mushrums"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/Round 1A/barber"/>
+			<item value="/home/dima/Projects/Experements/Google/2015/qualification/djikstra"/>
+			<item value="/home/dima/Projects/Experements/Google/practice"/>
+			<item value="/home/dima/Projects/Experements/Alpha/OrientDb/load_stocks"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArtifactPage">
+		<list key="groupId">
+			<item value="org.google"/>
+			<item value="org.balleship"/>
+			<item value="google"/>
+			<item value="org.isbar_software.google"/>
+			<item value="org.isbar_software"/>
+			<item value="org.isbar_sofrware"/>
+			<item value="ogr.isbar_software.google.practice"/>
+			<item value="org.isbar_software.google.practice"/>
+			<item value="org.isbar_sofwtare.google.qualification"/>
+			<item value="org.isbar_software.google.quialification"/>
+			<item value="org.isbar_software.google.qualification"/>
+			<item value="org.isbar_software.loaders"/>
+		</list>
+		<list key="name">
+		</list>
+		<list key="artifactId">
+			<item value="monekeys"/>
+			<item value="battleship"/>
+			<item value="neighbors"/>
+			<item value="culture"/>
+			<item value="repeater"/>
+			<item value="trees"/>
+			<item value="treer"/>
+			<item value="barber"/>
+			<item value="mushrums"/>
+			<item value="outlets"/>
+			<item value="omnio"/>
+			<item value="dijkstra"/>
+			<item value="pankakes"/>
+			<item value="ovations"/>
+			<item value="load_balancing"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+		<list key="version">
+			<item value="1.0.0"/>
+		</list>
+	</section>
+</section>

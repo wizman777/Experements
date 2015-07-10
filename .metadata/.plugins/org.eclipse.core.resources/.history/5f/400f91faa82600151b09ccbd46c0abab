@@ -1,0 +1,92 @@
+package org.isbar_software.benchmarks.dynamodb;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.document.BatchWriteItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.TableWriteItems;
+import com.amazonaws.util.StringUtils;
+
+public class Benchmark {
+	private static final String TABLE1_NAME = "Test1";
+	private static final String TABLE2_NAME = "Test2";
+	private static final int BATCH_ITEMS = 25;
+
+	private final int count;
+	private final String accessKey;
+	private final String secretKey;
+	
+	public Benchmark(Properties properties) {
+		count = Integer.parseInt(properties.getProperty("count"));
+		accessKey = properties.getProperty("aws.access.key");
+        secretKey = properties.getProperty("aws.secret.key"); 
+        
+        if (count <= 0)
+        	throw new IllegalArgumentException("Count can not be less or equal to zero");
+        if (StringUtils.isNullOrEmpty(accessKey) || StringUtils.isNullOrEmpty(secretKey))
+        	throw new IllegalArgumentException("S3 access key and secret key can not be empty");
+	}
+	
+	public void process() {
+		AWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
+		AmazonDynamoDBClient  client = new AmazonDynamoDBClient(awsCredentials);
+		client.setRegion(Region.getRegion(Regions.US_WEST_2)); 
+		DynamoDB dynamoDB = new DynamoDB(client);
+		Table table = dynamoDB.getTable(TABLE1_NAME);
+		
+		long beginTime, endTime;
+
+		/*System.out.println("Testing items write");
+   	    beginTime = System.currentTimeMillis();
+   	    for (int i = 0; i < count; ++i) {
+   	    	Item item = new Item().withPrimaryKey("id", Integer.toString(i));
+   	    	table.putItem(item);	
+   	    }
+			
+		endTime = System.currentTimeMillis();
+	    System.out.println(String.format("Done. Imported %d nodes over %d ms. Average %f ms per node", 
+	    		count, endTime - beginTime, (float)(endTime - beginTime) / (float)count));
+		*/
+		
+	    System.out.println("Testing batch items write");
+   	    beginTime = System.currentTimeMillis();
+   	    
+   	    int i, id = 0;
+   	    long batchCounter = 0;
+   	    while (id < count) {
+   	    	i = id;
+   	    	id += BATCH_ITEMS;
+   	    	if (id > count)
+   	    		id = count;
+   	    	List<Item> items = new ArrayList<Item>();
+   	    	for (; i < id; ++i) {
+   	    		Item item = new Item()
+   	    			.withPrimaryKey("id", Integer.toString(i)); 
+   	    		items.add(item);
+   	    	}
+   	    	   	    	
+   	    	TableWriteItems writeItems = new TableWriteItems(TABLE2_NAME)
+   	    		.withItemsToPut(items);
+   	    	BatchWriteItemOutcome outcome = dynamoDB.batchWriteItem(writeItems);
+   	    	++batchCounter;
+   	    	while (outcome.getUnprocessedItems().size() > 0) {
+  	    		outcome = dynamoDB.batchWriteItemUnprocessed(outcome.getUnprocessedItems());
+   	    		++batchCounter;
+   	    	}   	    	
+   	    }
+			
+		endTime = System.currentTimeMillis();
+	    System.out.println(String.format("Done. Imported %d nodes with %d batch requests, over %d ms. Average %f ms per request", 
+	    		count, batchCounter, endTime - beginTime, (float)(endTime - beginTime) / (float)batchCounter));
+				
+	}
+}

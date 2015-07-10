@@ -1,0 +1,5 @@
+package org.isbar_software.benchmarks.dynamodb;
+
+public class Benchmark {
+
+}

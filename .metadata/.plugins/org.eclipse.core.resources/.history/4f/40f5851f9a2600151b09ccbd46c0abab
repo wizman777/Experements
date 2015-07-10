@@ -1,0 +1,25 @@
+package org.isbar_software.benchmarks.neo4j;
+
+import java.util.Properties;
+
+public class Benchmark {
+
+	public Benchmark(Properties properties) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void process() {
+		
+	}
+	
+	private GraphDatabaseService getGraphDb( final String graphDbPath ) {
+		GraphDatabaseService graphDb = new GraphDatabaseFactory()
+			.newEmbeddedDatabaseBuilder( graphDbPath + NEO4J_DB )
+			.loadPropertiesFromFile( graphDbPath + NEO4J_CONF )
+			.newGraphDatabase();
+		
+		registerShutdownHook( graphDb );
+		
+		return graphDb;
+	}
+}

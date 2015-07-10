@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;test_neo4j_speed&apos; to &apos;org.isbar_software.benchmarks.neo4j&apos;&#x0A;- Original project: &apos;test_neo4j_speed&apos;&#x0A;- Original element: &apos;test_neo4j_speed/src/main/java/test_neo4j_speed&apos;&#x0A;- Renamed element: &apos;test_neo4j_speed/src/main/java/org.isbar_software.benchmarks.neo4j&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;test_neo4j_speed&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src\/main\/java&lt;test_neo4j_speed" name="org.isbar_software.benchmarks.neo4j" qualified="false" references="true" stamp="1436487123316" textual="false" version="1.0"/>
+</session>

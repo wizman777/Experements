@@ -1,0 +1,10 @@
+package org.isbar_software.benchmarks.neo4j;
+
+import java.util.Properties;
+
+public class Benchmark {
+
+	public Benchmark(Properties properties) {
+		
+	}
+}

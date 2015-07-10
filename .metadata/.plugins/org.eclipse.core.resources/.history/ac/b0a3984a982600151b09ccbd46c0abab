@@ -1,0 +1,10 @@
+package test_neo4j_speed;
+
+public class App {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
